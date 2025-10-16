@@ -12,7 +12,7 @@ public class JournalDto
     /// Идентификатор записи
     /// </summary>
     [Required]
-    public Guid Id { get; set; }
+    public long Id { get; set; }
 
     /// <summary>
     /// Идентификатор чека
@@ -24,12 +24,12 @@ public class JournalDto
     /// <summary>
     /// Идентификатор сотрудника
     /// </summary>
-    public Guid? EmployeeCode { get; set; }
+    public long? EmployeeCode { get; set; }
 
     /// <summary>
     /// Идентификатор номенклатуры
     /// </summary>
-    public Guid? NomenclatureCode { get; set; }
+    public long? NomenclatureCode { get; set; }
 
     /// <summary>
     /// Описание
@@ -40,7 +40,7 @@ public class JournalDto
     /// <summary>
     /// Идентификатор категории
     /// </summary>
-    public Guid? CategoryCode { get; set; }
+    public int? CategoryCode { get; set; }
 
     /// <summary>
     /// ИДентификатор операции
