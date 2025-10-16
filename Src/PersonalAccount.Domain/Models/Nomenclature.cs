@@ -6,12 +6,12 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель номенклатуры
 /// </summary>
-public class Nomenclature : IId
-{
+public class Nomenclature {
     /// <summary>
     /// Идентификатор номенклатуры
     /// </summary>
-    public Guid Id { get; set; }
+    [Required]
+    public long Id { get; set; }
 
     /// <summary>
     /// Наименование номенклатуры

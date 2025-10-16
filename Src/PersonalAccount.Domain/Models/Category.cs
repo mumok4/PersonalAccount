@@ -7,12 +7,13 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель категории номераклатуры.
 /// </summary>
-public class Category : IId
+public class Category
 {
     /// <summary>
     /// Идентификатор категории
     /// </summary>
-    public Guid Id { get; set; }
+    [Required]
+    public int Id { get; set; }
 
     /// <summary>
     /// Наименование категории.

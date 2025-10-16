@@ -18,12 +18,13 @@ public enum OperationType
 /// <summary>
 /// Модель транзакции
 /// </summary>
-public class Transaction : IId
+public class Transaction
 {
     /// <summary>
     /// Идентификатор транзакции
     /// </summary>
-    public Guid Id { get; set; }
+    [Required]
+    public long Id { get; set; }
 
     /// <summary>
     /// Дата транзакции

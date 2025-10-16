@@ -12,6 +12,7 @@ public class Organization : IId
     /// <summary>
     /// Идентификатор организации
     /// </summary>
+    [Required]
     public Guid Id { get; set; }
 
     /// <summary>

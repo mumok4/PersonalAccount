@@ -11,6 +11,7 @@ public class LoadSettings : IId
     /// <summary>
     /// Идентификатор настроек
     /// </summary>
+    [Required]
     public Guid Id { get; set; }
 
     /// <summary>

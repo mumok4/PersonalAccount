@@ -114,7 +114,7 @@ public class ModelTests
         
         var emp = new Employee
         {
-            Id = Guid.NewGuid(),
+            Id = 1,
             Name = "Test",
             Organization = org,
             Phone = "+79990001122"
@@ -140,7 +140,7 @@ public class ModelTests
         
         var emp = new Employee
         {
-            Id = Guid.NewGuid(),
+            Id = 1,
             Name = "Test",
             Organization = org,
             Phone = "Test" 
@@ -161,12 +161,12 @@ public class ModelTests
     {
         // Подготовка
         var org = new Organization { Id = Guid.NewGuid(), Name = "Test", Inn = "Test", Address = "Test, Test, Test, Test, Test, Test" };
-        var cat = new Category { Id = Guid.NewGuid(), Name = "Test" };
-        var nom = new Nomenclature { Id = Guid.NewGuid(), Name = "Test", Category = cat };
+        var cat = new Category { Id = 1, Name = "Test" };
+        var nom = new Nomenclature { Id = 1, Name = "Test", Category = cat };
 
         var transaction = new Transaction
         {
-            Id = Guid.NewGuid(),
+            Id = 1,
             Date = DateTimeOffset.Now,
             Organization = org,
             Nomenclature = nom,
@@ -191,14 +191,14 @@ public class ModelTests
         // Подготовка
         var dto = new JournalDto
         {
-            Id = Guid.NewGuid(),
+            Id = 1,
             CheckNumber = "TestTestTestTestTestTest", // 24 символа
             TransactionCode = 1,
             TransactionDate = DateTimeOffset.Now,
             Quantity = 1,
             Amount = 100,
-            EmployeeCode = Guid.NewGuid(),
-            NomenclatureCode = Guid.NewGuid()
+            EmployeeCode = 1,
+            NomenclatureCode = 1
         };
 
         // Действие

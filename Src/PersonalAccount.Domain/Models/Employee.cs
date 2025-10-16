@@ -6,12 +6,13 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель сотрудника
 /// </summary>
-public class Employee : IId
+public class Employee
 {
     /// <summary>
     /// Идентификатор сотрудника
     /// </summary>
-    public Guid Id { get; set; }
+    [Required]
+    public long Id { get; set; }
 
     /// <summary>
     /// ФИО сотрудника

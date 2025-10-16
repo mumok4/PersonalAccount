@@ -84,7 +84,7 @@ public class ApplicationTests
          
         var domain = new Employee
         {
-            Id = Guid.NewGuid(),
+            Id = 1,
             Name = "Tester",
             Organization = org,
             Phone = "+79001234567"
