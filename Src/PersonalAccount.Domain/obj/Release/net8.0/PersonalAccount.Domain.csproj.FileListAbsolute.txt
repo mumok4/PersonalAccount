@@ -1,0 +1,11 @@
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/bin/Release/net8.0/PersonalAccount.Domain.deps.json
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/bin/Release/net8.0/PersonalAccount.Domain.dll
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/bin/Release/net8.0/PersonalAccount.Domain.pdb
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/PersonalAccount.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/PersonalAccount.Domain.AssemblyInfoInputs.cache
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/PersonalAccount.Domain.AssemblyInfo.cs
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/PersonalAccount.Domain.csproj.CoreCompileInputs.cache
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/PersonalAccount.Domain.dll
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/refint/PersonalAccount.Domain.dll
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/PersonalAccount.Domain.pdb
+/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/obj/Release/net8.0/ref/PersonalAccount.Domain.dll
