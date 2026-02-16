@@ -1,29 +1,34 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
-/// Модель - сотрудник.
+/// Модель сотрудника
 /// </summary>
-public class Emploee : IId
+public class Employee : IId
 {
     /// <summary>
-    /// Уникальный код.
+    /// Идентификатор сотрудника
     /// </summary>
-    public Guid Id {get;set;}
+    public Guid Id { get; set; }
 
     /// <summary>
-    /// Наименование сотрудника.
+    /// ФИО сотрудника
     /// </summary>
     [Required]
     [StringLength(255)]
-    public string Name {get;set;} = string.Empty;
+    public required string Name { get; set; }
 
     /// <summary>
-    /// Контактный телефон.
+    /// Контактный телефон
     /// </summary>
-    [PhoneTemplate("УРА!")]
-    public string? Phone {get;set;}
+    [PhoneTemplate(@"^(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$")]
+    public string? Phone { get; set; }
+
+    /// <summary>
+    /// Организация
+    /// </summary>
+    [Required]
+    public required Organization Organization { get; set; }
 }

@@ -9,15 +9,20 @@ namespace PersonalAccount.Domain.Models;
 public class Nomenclature : IId
 {
     /// <summary>
-    /// Уникальный код
+    /// Идентификатор номенклатуры
     /// </summary>
-    [Required]
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Наименование сотрудника
+    /// Наименование номенклатуры
     /// </summary>
     [Required]
     [StringLength(255)]
-    public string Name { get; set;} = string.Empty;
+    public required string Name { get; set; }
+
+    /// <summary>
+    /// Категория товара
+    /// </summary>
+    [Required]
+    public required Category Category { get; set; }
 }

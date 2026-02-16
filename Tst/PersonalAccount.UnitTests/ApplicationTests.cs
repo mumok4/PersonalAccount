@@ -67,12 +67,28 @@ public class ApplicationTests
         Assert.That(properties.Any());
     }
 
+    /// <summary>
+    /// Проверяем наличие аттрибута телефона
+    /// </summary>
     [Test]
-
     public void Create_Employee_ExistsPhoneTemplateAttribute()
     {
         // Подготовка
-        var domain = new Employee();
+        var org = new Organization 
+        { 
+            Id = Guid.NewGuid(),
+            Name = "Test Org",
+            Inn = "1234567890",
+            Address = "Россия, Москва, ул. Ленина, д.1, кв.1"
+        };
+         
+        var domain = new Employee
+        {
+            Id = Guid.NewGuid(),
+            Name = "Tester",
+            Organization = org,
+            Phone = "+79001234567"
+        };
 
         // Действие
         var properties = domain.GetType().GetProperties().Where(x => x.GetCustomAttribute<PhoneTemplateAttribute>(true) is not null);
@@ -81,9 +97,10 @@ public class ApplicationTests
 
         // Проверка
         Assert.That(properties.Any());
-        Assert.That(string.IsNullOrEmpty(attribute!.Template));
+        Assert.That(!string.IsNullOrEmpty(attribute!.Template));
         Assert.That(match.IsMatch(domain.Phone!));
 
 
+    
     }
 }

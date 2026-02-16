@@ -1,19 +1,21 @@
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Contracts;
+using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
 /// Модель настроек загрузки данных
 /// </summary>
-public class LoadSettings
+public class LoadSettings : IId
 {
     /// <summary>
-    /// Уникальный код
+    /// Идентификатор настроек
     /// </summary>
-    [Required]
     public Guid Id { get; set; }
 
-    public int batch { get; set; }
-
+    /// <summary>
+    /// Размер пакета загрузки
+    /// </summary>
+    [Range(1, 10000)]
+    public int BatchSize { get; set; } = 100;
 }

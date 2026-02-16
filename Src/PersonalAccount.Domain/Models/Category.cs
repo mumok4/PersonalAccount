@@ -10,7 +10,7 @@ namespace PersonalAccount.Domain.Models;
 public class Category : IId
 {
     /// <summary>
-    /// Уникальный код.
+    /// Идентификатор категории
     /// </summary>
     public Guid Id { get; set; }
 
