@@ -1,3 +1,0 @@
-/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/bin/Release/net8.0/publish/PersonalAccount.Domain.dll
-/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/bin/Release/net8.0/publish/PersonalAccount.Domain.deps.json
-/home/valex/Projects/PersonalAccount2026/Src/PersonalAccount.Domain/bin/Release/net8.0/publish/PersonalAccount.Domain.pdb

@@ -1,7 +1,0 @@
-/home/valex/Projects/PersonalAccount2026/publish/PersonalAccount.Console
-/home/valex/Projects/PersonalAccount2026/publish/PersonalAccount.Console.dll
-/home/valex/Projects/PersonalAccount2026/publish/PersonalAccount.Console.deps.json
-/home/valex/Projects/PersonalAccount2026/publish/PersonalAccount.Console.runtimeconfig.json
-/home/valex/Projects/PersonalAccount2026/publish/PersonalAccount.Console.pdb
-/home/valex/Projects/PersonalAccount2026/publish/PersonalAccount.Domain.dll
-/home/valex/Projects/PersonalAccount2026/publish/PersonalAccount.Domain.pdb
