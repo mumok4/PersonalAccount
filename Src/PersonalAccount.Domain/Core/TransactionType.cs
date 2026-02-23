@@ -8,7 +8,7 @@ public enum TransactionType : long
     /// <summary>
     /// Продажа
     /// </summary>
-    Sales = 101 ,
+    Sale = 101 ,
 
     /// <summary>
     /// Списание по себестоимости
