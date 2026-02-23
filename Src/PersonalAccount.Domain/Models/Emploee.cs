@@ -1,19 +1,13 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
-/// Модель - сотрудник.
+/// Модель сотрудника.
 /// </summary>
-public class Emploee : IId
+public class Emploee : DomainModel
 {
-    /// <summary>
-    /// Уникальный код.
-    /// </summary>
-    public Guid Id {get;set;}
-
     /// <summary>
     /// Наименование сотрудника.
     /// </summary>
@@ -24,6 +18,12 @@ public class Emploee : IId
     /// <summary>
     /// Контактный телефон.
     /// </summary>
-    [PhoneTemplate("УРА!")]
+    [Template(@"^\+7\d{10}$")]
     public string? Phone {get;set;}
+
+    /// <summary>
+    /// Организация владелец категории.
+    /// </summary>
+    [Required]
+    public Company Owner {get;set;} = null!;
 }

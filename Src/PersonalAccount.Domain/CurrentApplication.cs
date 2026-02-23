@@ -23,7 +23,7 @@ public static class CurrentApplication
 	/// </summary>
 	public static void ShowLogo()
 	{
-		Console.ForegroundColor = ConsoleColor.Green;
+		Console.ForegroundColor = ConsoleColor.Cyan;
 		foreach( var line in asciiArt ) {
 			Console.WriteLine( line );
 		}

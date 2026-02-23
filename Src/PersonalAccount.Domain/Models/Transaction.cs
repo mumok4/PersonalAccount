@@ -1,22 +1,56 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
-/// Модель транзакции
+/// Модель транзакции.
 /// </summary>
-public class Transaction
+public class Transaction : DomainModel
 {
     /// <summary>
-    /// Уникальный код
+    /// Тип транзакции.
     /// </summary>
     [Required]
-    public Guid Id { get; set; }
+    public TransactionType Type {get;set;}
 
     /// <summary>
-    /// Наименование сотрудника
+    /// Организация владелец категории.
     /// </summary>
     [Required]
-    [StringLength(255)]
-    public string Name { get; set;} = string.Empty;
+    public Company Owner {get;set;} = null!;
+
+    /// <summary>
+    /// Период операции.
+    /// </summary>
+    [Required]
+    public DateTimeOffset Period {get;set;}
+
+    /// <summary>
+    /// Номенклатура.
+    /// </summary>
+    [Required]
+    public Nomenclature Nomenclature {get;set;} = null!;
+
+    /// <summary>
+    /// Сотрудник который выполнил операцию.
+    /// </summary>
+    [Required]
+    public Emploee Emploee {get;set;} = null!;
+
+    /// <summary>
+    /// Цена.
+    /// </summary>
+    public double Price {get;set;}
+
+    /// <summary>
+    /// Количество.
+    /// </summary>
+    public double Quantuty {get;set;}
+
+    /// <summary>
+    /// Сумма скидки.
+    /// </summary>
+    public double Discount {get;set;}
 }
