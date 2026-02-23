@@ -483,6 +483,11 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 
+*.sql
+
+_Infra/
+
+client*
 # Backup files
 [Bb]ackup/
 
