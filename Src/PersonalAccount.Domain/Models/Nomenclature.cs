@@ -1,23 +1,22 @@
+using System;
 using System.ComponentModel.DataAnnotations;
-using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
-/// Модель номенклатуры
+/// Модель номенклатуры.
 /// </summary>
-public class Nomenclature : IId
+public class Nomenclature : DomainModel
 {
     /// <summary>
-    /// Уникальный код
+    /// Наименование,
     /// </summary>
     [Required]
-    public Guid Id { get; set; }
+    public string Name {get;set;} = string.Empty;
 
     /// <summary>
-    /// Наименование сотрудника
+    /// Категория.
     /// </summary>
     [Required]
-    [StringLength(255)]
-    public string Name { get; set;} = string.Empty;
+    public Category Category {get;set;} = null!;
 }

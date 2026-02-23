@@ -1,11 +1,9 @@
-using System;
-
 namespace PersonalAccount.Domain.Core;
 
 /// <summary>
-/// Атрибут для фиксации шаблона телефона.
+/// Собственный атрибут для проверки корректности строковых данных на основе регулярного выражения.
 /// </summary>
-public class PhoneTemplateAttribute : Attribute
+public class TemplateAttribute : Attribute
 {
     /// <summary>
     /// Габлон для проверки телефонного номера.
@@ -13,10 +11,10 @@ public class PhoneTemplateAttribute : Attribute
     public string Template { get; set; }
 
     /// <summary>
-    /// Создать инстанс класса <see cref="PhoneAttribute"/>
+    /// Создать инстанс класса <see cref="TemplateAttribute"/>
     /// </summary>
     /// <param name="template"> Шаблон для регшулярного выражения. </param>
-    public PhoneTemplateAttribute(string template)
+    public TemplateAttribute(string template)
     {
         Template = template ?? throw new ArgumentNullException(nameof(template));
     }
