@@ -482,3 +482,13 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Backup files
+[Bb]ackup/
+
+# Docker
+*docker*
+
+# DB files
+data/
+pgdata/

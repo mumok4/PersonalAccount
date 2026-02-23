@@ -5,65 +5,52 @@ using PersonalAccount.Domain.Core;
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
-/// Тип операции
+/// Модель транзакции.
 /// </summary>
-public enum OperationType
-{
-    RECIEVE = 1,
-    SALE = 2,
-    RETURN = 3,
-    WRITEOFF = 4,
-}
-
-/// <summary>
-/// Модель транзакции
-/// </summary>
-public class Transaction
+public class Transaction : DomainModel
 {
     /// <summary>
-    /// Идентификатор транзакции
+    /// Тип транзакции.
     /// </summary>
     [Required]
-    public long Id { get; set; }
+    public TransactionType Type {get;set;}
 
     /// <summary>
-    /// Дата транзакции
+    /// Организация владелец категории.
     /// </summary>
     [Required]
-    public DateTimeOffset Date { get; set; }
+    public Company Owner {get;set;} = null!;
 
     /// <summary>
-    /// Организация
+    /// Период операции.
     /// </summary>
     [Required]
-    public required Organization Organization { get; set; }
+    public DateTimeOffset Period {get;set;}
 
     /// <summary>
-    /// Сотрудник
-    /// </summary>
-    public Employee? Employee { get; set; }
-
-    /// <summary>
-    /// Номенклатура
+    /// Номенклатура.
     /// </summary>
     [Required]
-    public required Nomenclature Nomenclature { get; set; }
+    public Nomenclature Nomenclature {get;set;} = null!;
 
     /// <summary>
-    /// Количество
-    /// </summary>
-    [Range(0, double.MaxValue)]
-    public decimal Quantity { get; set; }
-
-    /// <summary>
-    /// Сумма
-    /// </summary>
-    [Range(0, double.MaxValue)]
-    public decimal Amount { get; set; }
-
-    /// <summary>
-    /// Тип операции
+    /// Сотрудник который выполнил операцию.
     /// </summary>
     [Required]
-    public OperationType Type { get; set; }
+    public Emploee Emploee {get;set;} = null!;
+
+    /// <summary>
+    /// Цена.
+    /// </summary>
+    public double Price {get;set;}
+
+    /// <summary>
+    /// Количество.
+    /// </summary>
+    public double Quantuty {get;set;}
+
+    /// <summary>
+    /// Сумма скидки.
+    /// </summary>
+    public double Discount {get;set;}
 }

@@ -1,28 +1,22 @@
+using System;
 using System.ComponentModel.DataAnnotations;
-using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models;
 
 /// <summary>
-/// Модель номенклатуры
+/// Модель номенклатуры.
 /// </summary>
-public class Nomenclature {
+public class Nomenclature : DomainModel
+{
     /// <summary>
-    /// Идентификатор номенклатуры
+    /// Наименование,
     /// </summary>
     [Required]
-    public long Id { get; set; }
+    public string Name {get;set;} = string.Empty;
 
     /// <summary>
-    /// Наименование номенклатуры
+    /// Категория.
     /// </summary>
     [Required]
-    [StringLength(255)]
-    public required string Name { get; set; }
-
-    /// <summary>
-    /// Категория товара
-    /// </summary>
-    [Required]
-    public required Category Category { get; set; }
+    public Category Category {get;set;} = null!;
 }
