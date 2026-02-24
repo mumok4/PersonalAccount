@@ -7,7 +7,6 @@ using PersonalAccount.Domain.Core;
 using PersonalAccount.Domain.Models;
 using System.Data;
 using System.Data.Common;
-using PersonalAccount.Domain.Models;
 using PersonalAccount.Domain.Models.Dto;
 
 CurrentApplication.ShowLogo();

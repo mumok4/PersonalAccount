@@ -26,10 +26,10 @@ public class JournalRowDto : IDto
     public decimal ReceiptNumber {get;set;}
 
     /// <summary>
-    /// Уникальный код продукта.
+    /// Уникальный код продукта/сотрудника.
     /// </summary>
     [DbColumn("id", typeof(string))]
-    public string? ProductCode {get;set;}
+    public string? Entity {get;set;}
 
     /// <summary>
     /// Уникальный код категории продуктов.
@@ -46,7 +46,7 @@ public class JournalRowDto : IDto
     /// <summary>
     /// Дата время транзакции.
     /// </summary>
-    [DbColumn("dater", typeof(DateTime))]
+    [DbColumn("dater", typeof(DateTimeOffset))]
     public DateTimeOffset Period {get;set;}
 
     /// <summary>
