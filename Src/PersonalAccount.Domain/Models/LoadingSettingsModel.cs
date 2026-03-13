@@ -6,13 +6,13 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель настроек загрузки данных.
 /// </summary>
-public class LoadingSettings : DomainModel
+public class LoadingSettingsModel : DomainModel
 {
     /// <summary>
     /// Организация владелец категории.
     /// </summary>
     [Required]
-    public Company Owner {get;set;} = null!;
+    public CompanyModel Owner {get;set;} = null!;
 
     /// <summary>
     /// Описание настройки

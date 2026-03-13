@@ -6,7 +6,7 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель сотрудника.
 /// </summary>
-public class Emploee : DomainModel
+public class EmploeeModel : DomainModel
 {
     /// <summary>
     /// Наименование сотрудника.
@@ -25,5 +25,6 @@ public class Emploee : DomainModel
     /// Организация владелец категории.
     /// </summary>
     [Required]
-    public Company Owner {get;set;} = null!;
+    public CompanyModel Owner {get;set;} = null!;
+ 
 }

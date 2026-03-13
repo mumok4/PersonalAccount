@@ -6,7 +6,7 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель номенклатуры.
 /// </summary>
-public class Nomenclature : DomainModel
+public class NomenclatureModel : DomainModel
 {
     /// <summary>
     /// Наименование,
@@ -18,5 +18,5 @@ public class Nomenclature : DomainModel
     /// Категория.
     /// </summary>
     [Required]
-    public Category Category {get;set;} = null!;
+    public CategoryModel Category {get;set;} = null!;
 }

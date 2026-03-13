@@ -5,7 +5,7 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель категории номераклатуры.
 /// </summary>
-public class Category : DomainModel
+public class CategoryModel : DomainModel
 {
     /// <summary>
     /// Наименование категории.
@@ -18,5 +18,5 @@ public class Category : DomainModel
     /// Организация владелец категории.
     /// </summary>
     [Required]
-    public Company Owner {get;set;} = null!;
+    public CompanyModel Owner {get;set;} = null!;
 }

@@ -35,7 +35,7 @@ public abstract class DomainModel : IErrorText, IId
     /// Выполнить проверку свойство модели.
     /// </summary>
     /// <returns></returns>
-    public bool Validate()
+    public virtual bool Validate()
     {
         // 1. Проверяем стандартные атрибуты
         var context = new ValidationContext(this);

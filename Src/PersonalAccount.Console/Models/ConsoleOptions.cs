@@ -3,9 +3,9 @@ using System;
 namespace PersonalAccount.Console.Models;
 
 /// <summary>
-/// Настройки приложения.
+/// Настройки консольного приложения.
 /// </summary>
-public class ApplicationOptions
+public class ConsoleOptions
 {
     /// <summary>
     /// Строка подключения MS SQL
