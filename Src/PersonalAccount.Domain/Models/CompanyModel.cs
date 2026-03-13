@@ -7,7 +7,7 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель юридической организации.
 /// </summary>
-public class Company : DomainModel
+public class CompanyModel : DomainModel
 {
     /// <summary>
     /// Наименование организации

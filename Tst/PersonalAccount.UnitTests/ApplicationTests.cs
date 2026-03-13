@@ -43,7 +43,7 @@ public class ApplicationTests
     public void Create_Category_CheckNullName()
     {
         // Подготовка
-        var domain = new Category();
+        var domain = new CategoryModel();
 
         // Действие
 
@@ -58,7 +58,7 @@ public class ApplicationTests
     public void Create_Category_ExistsAttributes()
     {
         // Подготовка
-        var type = typeof(Category);
+        var type = typeof(CategoryModel);
 
         // Действие
         var properties = type.GetProperties().Where(x => x.GetCustomAttributes(true).Any());
@@ -74,7 +74,7 @@ public class ApplicationTests
     public void Create_Emploee_ExistsPhoneTemplateAttribute()
     {
         // Подготовка
-        var domain = new Emploee() { Phone = "+79041528366" };
+        var domain = new EmploeeModel() { Phone = "+79041528366" };
 
         // Действие
         var properties = domain.GetType()
@@ -101,7 +101,7 @@ public class ApplicationTests
     public void Create_Company_CheckTemplateAddress(string address, bool result )
     {
         // Подготовка
-        var domain = new Company()
+        var domain = new CompanyModel()
         {
             Name = "test", Id = Guid.NewGuid(), Address = address
         };
@@ -123,15 +123,15 @@ public class ApplicationTests
     public void Create_Transaction_FalseValidate()
     {
         // Подготовка
-        var transaction = new Transaction()
+        var transaction = new TransactionModel()
         {
-            Emploee = new Emploee() { Name = "test"},
-            Owner = new Company() { Name = "test"},
+            Emploee = new EmploeeModel() { Name = "test"},
+            Owner = new CompanyModel() { Name = "test"},
             Type = TransactionType.Sale,
             Quantuty = 1, Price = 1 , 
             Discount = 0, 
             Period = DateTimeOffset.Now,
-            Nomenclature = new Nomenclature()
+            Nomenclature = new NomenclatureModel()
         };
 
         // Действие
@@ -150,15 +150,15 @@ public class ApplicationTests
     public void Create_Transaction_TrueValidate()
     {
           // Подготовка
-        var transaction = new Transaction()
+        var transaction = new TransactionModel()
         {
-            Emploee = new Emploee() 
+            Emploee = new EmploeeModel() 
             { 
                 Name = "test" , 
                 Phone = "+79041518166", 
-                Owner = new Company() { Name = "test", INN = "1234567890", Address = "90000, Ленинградская обл., Ломоносовский р-н, г. Ломоносов, ул. Советская, д. 12"},
+                Owner = new CompanyModel() { Name = "test", INN = "1234567890", Address = "90000, Ленинградская обл., Ломоносовский р-н, г. Ломоносов, ул. Советская, д. 12"},
             },
-            Owner = new Company() 
+            Owner = new CompanyModel() 
             { 
                 Name = "test", 
                 INN = "1234567890", 
@@ -168,13 +168,13 @@ public class ApplicationTests
             Quantuty = 1, Price = 1 , 
             Discount = 0, 
             Period = DateTimeOffset.Now,
-            Nomenclature = new Nomenclature() 
+            Nomenclature = new NomenclatureModel() 
             { 
                 Name = "Test", 
-                Category = new Category()
+                Category = new CategoryModel()
                 { 
                     Name = "Test", 
-                    Owner = new Company() { Name = "test", INN = "1234567890", Address = "90000, Ленинградская обл., Ломоносовский р-н, г. Ломоносов, ул. Советская, д. 12"},
+                    Owner = new CompanyModel() { Name = "test", INN = "1234567890", Address = "90000, Ленинградская обл., Ломоносовский р-н, г. Ломоносов, ул. Советская, д. 12"},
                 }}
         };
 

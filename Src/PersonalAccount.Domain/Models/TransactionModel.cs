@@ -7,7 +7,7 @@ namespace PersonalAccount.Domain.Models;
 /// <summary>
 /// Модель транзакции.
 /// </summary>
-public class Transaction : DomainModel
+public class TransactionModel : DomainModel
 {
     /// <summary>
     /// Тип транзакции.
@@ -16,10 +16,15 @@ public class Transaction : DomainModel
     public TransactionType Type {get;set;}
 
     /// <summary>
+    /// Уникалоьный номер чека.
+    /// </summary>
+    public string TicketNumber {get; set;} = string.Empty;
+
+    /// <summary>
     /// Организация владелец категории.
     /// </summary>
     [Required]
-    public Company Owner {get;set;} = null!;
+    public CompanyModel Owner {get;set;} = null!;
 
     /// <summary>
     /// Период операции.
@@ -31,13 +36,13 @@ public class Transaction : DomainModel
     /// Номенклатура.
     /// </summary>
     [Required]
-    public Nomenclature Nomenclature {get;set;} = null!;
+    public NomenclatureModel Nomenclature {get;set;} = null!;
 
     /// <summary>
     /// Сотрудник который выполнил операцию.
     /// </summary>
     [Required]
-    public Emploee Emploee {get;set;} = null!;
+    public EmploeeModel Emploee {get;set;} = null!;
 
     /// <summary>
     /// Цена.
@@ -53,4 +58,5 @@ public class Transaction : DomainModel
     /// Сумма скидки.
     /// </summary>
     public double Discount {get;set;}
+
 }
