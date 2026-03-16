@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -18,7 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="../PersonalAccount.Data/PersonalAccount.Data.csproj" />
     <ProjectReference Include="../PersonalAccount.Domain/PersonalAccount.Domain.csproj" />
-  </ItemGroup>
+    <ProjectReference Include="../PersonalAccount.Common/PersonalAccount.Common.csproj" />
+</ItemGroup>
 
 
   <ItemGroup>
