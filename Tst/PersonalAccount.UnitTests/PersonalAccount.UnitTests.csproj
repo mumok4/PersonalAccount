@@ -19,4 +19,17 @@
     <ProjectReference Include="../../Src/PersonalAccount.Domain/PersonalAccount.Domain.csproj" />
   </ItemGroup>
 
+   <ItemGroup>
+    <Content Include="TypicalPaymentTransactions.json">
+      <Link>TypicalPaymentTransactions.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TypicalWorkScheduleTransactions.json">
+      <Link>TypicalWorkScheduleTransactions.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+
+
 </Project>

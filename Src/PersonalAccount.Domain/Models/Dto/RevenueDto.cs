@@ -3,6 +3,8 @@ using PersonalAccount.Domain.Core;
 
 namespace PersonalAccount.Domain.Models.Dto;
 
+// | Период | Сумма оплаты наличные | Сумма оплаты безналично | Сумма оплаты остальное | Сумма скидки | Флаг "Праздник" | Код организации |
+
 /// <summary>
 /// Записть в отчете "Выручка"
 /// </summary>

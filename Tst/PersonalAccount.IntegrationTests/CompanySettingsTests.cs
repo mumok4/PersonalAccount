@@ -1,5 +1,9 @@
 using System;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
+using PersonalAccount.Common.Core;
+using PersonalAccount.Data.Extensions;
 using PersonalAccount.Data.Logics;
 using PersonalAccount.Domain.Models;
 
@@ -15,16 +19,35 @@ namespace PersonalAccount.IntegrationTests;
 
 public class CompanySettingsTests
 {
+
+   // Работа с контейнером
+    private IServiceProvider _provider;
+
+    public CompanySettingsTests()
+    {
+       var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json");
+
+        var configuration = builder.Build();
+        var services = new ServiceCollection()
+                     .RegistryPersonalAccountData( configuration );
+
+        _provider = services.BuildServiceProvider();
+    }
+
+
     /// <summary>
     /// Прверить работу метода Load класса <see cref="CompanySettingsRepository"/>
     /// </summary>
     /// <returns></returns>
     [Test]
     [TestCase("14e54725-0efc-42b8-a27d-a84f9a7257c5")]
+    [Order(2)]
     public async Task  Load_CompanySettingsRepository_NotThrow(string companyId)
     {
         // Подготова
-        var repo = new CompanySettingsRepository();
+        var repo = _provider.GetRequiredService<ICompanySettingsRepository>();
         var company = new CompanyModel()
         {
             Id = new Guid( companyId )
@@ -33,7 +56,7 @@ public class CompanySettingsTests
         // Проверки и действие
         Assert.DoesNotThrowAsync( async() =>
         {
-            var result = await repo.Load(company, CancellationToken.None);
+            var result = await repo.LoadAsync(company, CancellationToken.None);
             Assert.That(result is not null);
         });
     }
@@ -43,12 +66,13 @@ public class CompanySettingsTests
     /// </summary>
     /// <returns></returns>
     [Test]
-      [TestCase("14e54725-0efc-42b8-a27d-a84f9a7257c5")]
+    [TestCase("14e54725-0efc-42b8-a27d-a84f9a7257c5")]
+    [Order(1)]
     public async Task Save_CompanySettingsRepository_NotThrow(string companyId)
     {
         // Подготовка
-        var repo = new CompanySettingsRepository();
-          var company = new CompanyModel()
+        var repo = _provider.GetRequiredService<ICompanySettingsRepository>();
+        var company = new CompanyModel()
         {
             Id = new Guid( companyId )
         };
@@ -60,8 +84,8 @@ public class CompanySettingsTests
         // Действие и проверка
         Assert.DoesNotThrowAsync(async () =>
         {
-            await repo.Save(setting, CancellationToken.None);
-            var result = await repo.Load(company, CancellationToken.None);
+            await repo.SaveAsync(setting, CancellationToken.None);
+            var result = await repo.LoadAsync(company, CancellationToken.None);
 
             Assert.That(result.StartPosition == setting.StartPosition, Is.True);
         });

@@ -34,4 +34,9 @@
   <ProjectReference Include="../PersonalAccount.Common/PersonalAccount.Common.csproj" />
 </ItemGroup>
 
+
+<ItemGroup>
+  <Folder Include="Extensions/" />
+</ItemGroup>
+
 </Project>

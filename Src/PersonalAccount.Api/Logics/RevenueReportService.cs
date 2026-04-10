@@ -28,7 +28,6 @@ public class RevenueReportService : IRevenueReportService
                                 })
                                 .ToDictionary(x => x.Key, x => x.Value));
      
-
         // Рассчитать все банковские оплаты
         var calcBankTask = Task.Run( () =>
         {
@@ -93,7 +92,6 @@ public class RevenueReportService : IRevenueReportService
                 pair => pair.Value 
                         - (allDiscounts.ContainsKey(pair.Key) ?  allDiscounts[pair.Key]  : 0)
                         - (allRefunds.ContainsKey(pair.Key) ? allRefunds[pair.Key] : 0)
-                
             );                
         });
 
@@ -115,7 +113,7 @@ public class RevenueReportService : IRevenueReportService
             CashAmount = calcCashTask.Result.ContainsKey( x ) ? calcCashTask.Result[ x ] : 0,
             DiscountAmount = calcDiscountTask.Result.ContainsKey( x ) ? calcDiscountTask.Result[ x ] : 0,
             Owner = transactions.FirstOrDefault()?.Owner.Id ?? Guid.Empty
-        });
+        }).OrderBy(x => x.Period);
 
         return result ;            
     }
@@ -123,7 +121,7 @@ public class RevenueReportService : IRevenueReportService
     /// <summary>
     /// Реализация ассинхронного варианта
     /// </summary>
-    /// <param name="transactions"></param>
+    /// <param name="transactions"> Набор транзакций. </param>
     /// <returns></returns>
     public async Task<IEnumerable<RevenueDto>> CreateAsync(IEnumerable<TransactionModel> transactions, CancellationToken token)
         => await Task.Run( () => Create( transactions), token);

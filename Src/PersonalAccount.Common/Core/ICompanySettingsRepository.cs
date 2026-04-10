@@ -14,7 +14,7 @@ public interface ICompanySettingsRepository
     /// <param name="setting"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public Task Save(LoadingSettingsModel setting,  CancellationToken token);
+    public Task SaveAsync(LoadingSettingsModel setting,  CancellationToken token);
 
     /// <summary>
     /// Загрузить настройки
@@ -22,5 +22,5 @@ public interface ICompanySettingsRepository
     /// <param name="company"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public Task<LoadingSettingsModel> Load(CompanyModel company, CancellationToken token);
+    public Task<LoadingSettingsModel> LoadAsync(CompanyModel company, CancellationToken token);
 }

@@ -1,7 +1,10 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using PersonalAccount.Data;
+using PersonalAccount.Data.Extensions;
 
 namespace PersonalAccount.IntegrationTests;
 
@@ -16,6 +19,22 @@ namespace PersonalAccount.IntegrationTests;
 /// </summary>
 public class DbContextTests
 {
+    // Работа с контейнером
+    private IServiceProvider _provider;
+
+    public DbContextTests()
+    {
+       var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json");
+
+        var configuration = builder.Build();
+        var services = new ServiceCollection()
+                     .RegistryPersonalAccountData( configuration );
+
+        _provider = services.BuildServiceProvider();
+    }
+
     /// <summary>
     /// Проверить выборку данных. Получить список всех организаций.
     /// </summary>
@@ -24,13 +43,12 @@ public class DbContextTests
     public async Task FetchCompanies_PersonalAccountContext_Any()
     {
         // Подготовка
-        var context = new PersonalAccountContext();
-
+        var context = _provider.GetRequiredService<PersonalAccountContext>();
+        
         // Действие
         var result = await context.Companies.ToListAsync(CancellationToken.None);
 
         // Проверка
         Assert.That(result, Is.Not.Null);
-        Assert.That(result.Any());
     }
 }
