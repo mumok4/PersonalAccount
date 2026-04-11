@@ -4,17 +4,17 @@ using PersonalAccount.Common.Core;
 
 namespace PersonalAccount.Api.Controllers
 {
-    private readonly ILoadingService _loading;
-
-    public CommonController(ILoadingService loadingService)
-    {
-        _loading = loadingService;
-    };
-
     [Route("api/[controller]")]
     [ApiController]
     public class CommonController : ControllerBase
     {
+        private readonly ILoadingService _loading;
+
+        public CommonController(ILoadingService loadingService)
+        {
+            _loading = loadingService;
+        }
+
         [HttpGet("version")]
         public IActionResult GetVersion()
         {

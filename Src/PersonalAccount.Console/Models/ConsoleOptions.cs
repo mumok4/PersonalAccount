@@ -1,14 +1,9 @@
-using System;
-
 namespace PersonalAccount.Console.Models;
 
-/// <summary>
-/// Настройки консольного приложения.
-/// </summary>
 public class ConsoleOptions
 {
-    /// <summary>
-    /// Строка подключения MS SQL
-    /// </summary>
-    public required string ConnectionString {get;set;} = string.Empty;
+    public string MsSqlConnection { get; set; } = string.Empty;
+    public string PostgreConnection { get; set; } = string.Empty;
+    public string ApiUrl { get; set; } = string.Empty;
+    public Guid CompanyId { get; set; }
 }

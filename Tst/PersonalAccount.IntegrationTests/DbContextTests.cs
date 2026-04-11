@@ -26,7 +26,7 @@ public class DbContextTests
     {
        var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json");
+                    .AddJsonFile("testsettings.json");
 
         var configuration = builder.Build();
         var services = new ServiceCollection()

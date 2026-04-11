@@ -7,28 +7,19 @@ using PersonalAccount.Data.Logics;
 
 namespace PersonalAccount.Data.Extensions;
 
-/// <summary>
-/// Регистрация сервисов модуля в DI
-/// </summary>
 public static class RegistryExtension
 {
-    /// <summary>
-    /// Зарегистрировать в контейнере сервисы модуля PersonalAccount.Data
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="configuration"></param>
-    /// <returns></returns>
-    public static IServiceCollection RegistryPersonalAccountData
-    (
-        this IServiceCollection services,
-        IConfiguration configuration
-    )
+    public static IServiceCollection RegistryPersonalAccountData(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton< ICompanySettingsRepository, CompanySettingsRepository>();
+        services.Configure<Domain.Models.Options.ApiOptions>(configuration.GetSection("ApiOptions"));
 
-        var connectionString = "User ID=admin;Password=123456;Host=localhost;Port=5433;Database=personal_account;";
+        services.AddScoped<ICompanySettingsRepository, CompanySettingsRepository>();
+        services.AddScoped<IJournalRowRepository, JournalRowRepository>(); 
+
+        var connectionString = configuration.GetValue<string>("ApiOptions:PostgreConnection");
+        
         services.AddDbContext<PersonalAccountContext>(
-            x => x.UseNpgsql( connectionString )
+            x => x.UseNpgsql(connectionString)
         );
 
         return services;

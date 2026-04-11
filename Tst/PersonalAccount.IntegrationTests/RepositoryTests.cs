@@ -1,9 +1,12 @@
-using System;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using NUnit.Framework;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using PersonalAccount.Console.Logics;
 using PersonalAccount.Console.Models;
+using PersonalAccount.Common.Core;
+using PersonalAccount.Domain.Models.Dto;
+using NUnit.Framework;
+using Microsoft.Data.SqlClient;
 
 namespace PersonalAccount.IntegrationTests;
 
@@ -20,17 +23,25 @@ namespace PersonalAccount.IntegrationTests;
 public class RepositoryTests
 {
     // Настройки текущие
-    private ApplicationOptions _options;
+    private ConsoleOptions _options;
+    private IServiceProvider _provider; 
 
     public RepositoryTests()
     {
         var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json");
+                    .AddJsonFile("testsettings.json");
 
         var configuration = builder.Build();
-        _options = configuration.Get<ApplicationOptions>()
+        _options = configuration.Get<ConsoleOptions>()
                         ?? throw new InvalidOperationException("Unabled loading appsettings.json!");
+
+        var services = new ServiceCollection();
+        services.Configure<ConsoleOptions>(configuration.GetSection("ConsoleOptions"));
+        services.AddTransient<IClientRepository<JournalRowDto>, JournalRepository>();
+        
+        _provider = services.BuildServiceProvider();
+        _options = _provider.GetRequiredService<IOptions<ConsoleOptions>>().Value;
     }
 
     /// <summary>
@@ -45,8 +56,9 @@ public class RepositoryTests
     public async Task GetRows_JournalRepository_Fetch(int rows)
     {
         // Подготовка
-        using var connect = new SqlConnection(_options.ConnectionString);
-        var repo = new JournalRepository();
+        using var connect = new SqlConnection(_options.MsSqlConnection);
+
+        var repo = _provider.GetRequiredService<IClientRepository<JournalRowDto>>();
 
         // Действие
         var result = await repo.GetRows(connect, new Domain.Models.LoadingSettingsModel() { BatchSize = rows });

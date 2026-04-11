@@ -27,7 +27,7 @@ public class RevenueReportServiceTests
         const double typicalResult = 820.2;
         var service = new RevenueReportService();
         var creator = new ReportDataCreator();
-        creator.BuildTypicalScenario();
+        creator.BuildTypicalPaymentScenario();
 
 
         // Действие

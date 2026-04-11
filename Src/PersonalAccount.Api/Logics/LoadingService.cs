@@ -1,4 +1,3 @@
-using System;
 using PersonalAccount.Common.Core;
 using PersonalAccount.Data.Logics;
 using PersonalAccount.Domain.Models;
@@ -8,37 +7,52 @@ namespace PersonalAccount.Api.Logics;
 
 public class LoadingService : ILoadingService
 {
-    private readonly  ICompanySettingsRepository _settingReposity;
-  
-    public LoadingService( ICompanySettingsRepository settingsRepository)
-        => _settingReposity = settingsRepository;
-    public bool Push(CompanyModel company, IEnumerable<JournalRowDto> transactions, CancellationToken token)
+    private readonly ICompanySettingsRepository _settingReposity;
+    private readonly IJournalRowRepository _journalRepository;
+
+    public LoadingService(ICompanySettingsRepository settingsRepository, IJournalRowRepository journalRepository)
     {
-        // 1 Поучаем настройки
-        var settings =  _settingReposity.LoadAsync( company, token ).Result
-                        ?? new LoadingSettingsModel()
-                        {
-                            Owner = company, StartPosition = 1, BatchSize = 1000
-                        };
-
-        var firstTransaction = transactions.FirstOrDefault();
-        if(firstTransaction is null) return false;
-        
-        // Отбрасываем лишние
-        var innerTransactions = transactions.Where(x => x.Code >= settings.StartPosition);
-
-        // Сохраняем 
-        
-        // Обновляем настройки
-        var lastCode = innerTransactions.OrderByDescending(x => x.Code).First().Code;
-        settings.StartPosition = lastCode;
-        var task = Task.Run( () =>  _settingReposity.SaveAsync( settings , token), token);
-        Task.WaitAll( task );
-    
-        return true;
+        _settingReposity = settingsRepository;
+        _journalRepository = journalRepository;
     }
 
+    public bool Push(CompanyModel company, IEnumerable<JournalRowDto> transactions, CancellationToken token)
+    {
+        return PushAsync(company, transactions, token).Result; 
+    }
 
     public async Task<bool> PushAsync(CompanyModel company, IEnumerable<JournalRowDto> transactions, CancellationToken token)
-        => await Task.Run( () => Push( company, transactions, token), token);
+    {
+        var settings = await _settingReposity.LoadAsync(company, token);
+        if (settings == null) 
+        {
+            settings = new LoadingSettingsModel { Owner = company, StartPosition = 1, BatchSize = 1000 };
+        }
+
+        var innerTransactions = transactions.Where(x => x.Code >= settings.StartPosition).ToList();
+
+        if (innerTransactions.Count() == 0) return true; 
+
+        var entities = innerTransactions.Select(x => new Data.Models.JournalRow
+        {
+            Code = x.Code,
+            TypeCode = x.TypeCode,
+            ReceiptNumber = x.ReceiptNumber,
+            Period = DateTime.SpecifyKind(x.Period, DateTimeKind.Utc), 
+            Quantity = x.Quantity,
+            Price = x.Price,
+            Discount = x.Discount,
+            EmploeeName = x.EmploeeName,
+            CategoryName = x.CategoryName,
+            NomenclatureName = x.NomenclatureName
+        }).ToList();
+
+        var lastCode = innerTransactions.Max(x => x.Code);
+        settings.StartPosition = lastCode + 1;
+
+        await _journalRepository.SaveRowsAsync(entities, token);
+        await _settingReposity.SaveAsync(settings, token);
+
+        return true;
+    }
 }

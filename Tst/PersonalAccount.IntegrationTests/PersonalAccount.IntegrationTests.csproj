@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="NUnit" Version="4.4.0" />
@@ -15,21 +14,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../../Src/PersonalAccount.Api/PersonalAccount.Api.csproj" />
     <ProjectReference Include="../../Src/PersonalAccount.Common/PersonalAccount.Common.csproj" />
     <ProjectReference Include="../../Src/PersonalAccount.Console/PersonalAccount.Console.csproj" />
     <ProjectReference Include="../../Src/PersonalAccount.Data/PersonalAccount.Data.csproj" />
     <ProjectReference Include="../../Src/PersonalAccount.Domain/PersonalAccount.Domain.csproj" />
   </ItemGroup>
 
- <ItemGroup>
-
-    <Content Include="../..//Src/PersonalAccount.Console/appsettings.json">
-      <Link>appsettings.json</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+  <ItemGroup>
+    <None Update="testsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-
-
-
 
 </Project>

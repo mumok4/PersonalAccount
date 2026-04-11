@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using PersonalAccount.Data.Models;
@@ -31,6 +31,8 @@ public partial class PersonalAccountContext : DbContext
     public virtual DbSet<Transaction> Transactions { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<JournalRow> JournalRows { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -189,6 +191,23 @@ public partial class PersonalAccountContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Password).HasColumnName("password");
+        });
+
+        modelBuilder.Entity<JournalRow>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.ToTable("journal_rows");
+            entity.Property(e => e.Id).HasDefaultValueSql("gen_random_uuid()").HasColumnName("id");
+            entity.Property(e => e.Code).HasColumnName("code");
+            entity.Property(e => e.TypeCode).HasColumnName("type_code");
+            entity.Property(e => e.ReceiptNumber).HasColumnName("receipt_number");
+            entity.Property(e => e.Period).HasColumnName("period");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.Price).HasColumnName("price");
+            entity.Property(e => e.Discount).HasColumnName("discount");
+            entity.Property(e => e.EmploeeName).HasColumnName("emploee_name");
+            entity.Property(e => e.CategoryName).HasColumnName("category_name");
+            entity.Property(e => e.NomenclatureName).HasColumnName("nomenclature_name");
         });
 
         OnModelCreatingPartial(modelBuilder);

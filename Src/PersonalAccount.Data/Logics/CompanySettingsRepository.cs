@@ -1,6 +1,7 @@
 using System.Text.Json;
 using PersonalAccount.Common.Core;
 using PersonalAccount.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersonalAccount.Data.Logics;
 
@@ -27,7 +28,7 @@ public class CompanySettingsRepository : ICompanySettingsRepository
     /// <returns></returns>
     public async Task<LoadingSettingsModel> LoadAsync(CompanyModel company, CancellationToken token)
     {
-        var item = _context.Companies.FirstOrDefault(x => x.Id == company.Id)
+        var item = await _context.Companies.FirstOrDefaultAsync(x => x.Id == company.Id)
             ?? throw new InvalidDataException($"Не найдена организация по коду {company.Id}!");
         var json = !string.IsNullOrEmpty( item.LoadOptions ) ? item.LoadOptions
             :  throw new InvalidDataException($"Организация по коду {company.Id} содержит некорретные данные по настройкам!");
@@ -46,7 +47,7 @@ public class CompanySettingsRepository : ICompanySettingsRepository
     public async Task SaveAsync(LoadingSettingsModel setting, CancellationToken token)
     {
         var companyId = setting.Owner?.Id ?? throw new InvalidDataException("Невозможно сохранить настройки т.к. нет информации об организации!");
-        var company = _context.Companies.FirstOrDefault(x => x.Id == companyId)
+        var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == companyId)
             ?? throw new InvalidDataException($"Не найдена организация по коду {companyId}!");
 
         var text =     JsonSerializer.Serialize(setting);

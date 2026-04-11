@@ -5,19 +5,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalAccount.Data.Extensions;
-
-
-var connectionString = "User ID=admin;Password=123456;Host=localhost;Port=5433;Database=personal_account;";
+using PersonalAccount.Common.Core;
+using PersonalAccount.Api.Logics;
 
 // Настройки и построитель Web приложения
 var builder = WebApplication.CreateBuilder();
-var configuration = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")
-                    .Build();
+
+builder.Configuration.AddJsonFile("appsettings.json");
+
+var connectionString = builder.Configuration.GetValue<string>("ApiOptions:PostgreConnection")!;
 
 // Миграции
-var upgrader =  DeployChanges.To
-            .PostgresqlDatabase(  connectionString )
+var upgrader = DeployChanges.To
+            .PostgresqlDatabase(connectionString)
             .WithScriptsEmbeddedInAssembly(Assembly.GetAssembly(typeof(PersonalAccount.Data.PersonalAccountDataMarker)))
             .LogToConsole()
             .Build();
@@ -30,10 +30,11 @@ if (!result.Successful)
     Console.ResetColor();
 }
 
-
 // Подключение сервисов
 builder.Services
-        .RegistryPersonalAccountData( configuration );
+        .RegistryPersonalAccountData(builder.Configuration);
+
+builder.Services.AddScoped<ILoadingService, LoadingService>();
 
 // Настройки Web
 builder.Services.AddControllers();
