@@ -27,6 +27,18 @@ var repository = provider.GetRequiredService<IClientRepository<JournalRowDto>>()
 
 long currentStartPosition = 1;
 
+try
+{
+    using var initClient = new HttpClient();
+    var positionUrl = $"{options.ApiUrl}/api/transactions/position/{options.CompanyId}";
+    currentStartPosition = await initClient.GetFromJsonAsync<long>(positionUrl);
+    Console.WriteLine($"Возобновление с позиции: {currentStartPosition}");
+}
+catch
+{
+    Console.WriteLine("Не удалось получить позицию, начинаем с 1");
+}
+
 while (true)
 {
     try 
@@ -39,7 +51,7 @@ while (true)
             {
                 var settings = new LoadingSettingsModel 
                 { 
-                    BatchSize = 1000, 
+                    BatchSize = 3000, 
                     StartPosition = currentStartPosition 
                 };
                 
@@ -68,5 +80,5 @@ while (true)
         Console.WriteLine($"Произошла ошибка: {ex.Message}");
     }
 
-    await Task.Delay(5000); 
+    await Task.Delay(500); 
 }

@@ -29,11 +29,9 @@ public class LoadingService : ILoadingService
             settings = new LoadingSettingsModel { Owner = company, StartPosition = 1, BatchSize = 1000 };
         }
 
-        var innerTransactions = transactions.Where(x => x.Code >= settings.StartPosition).ToList();
+        settings.Owner = company;
 
-        if (innerTransactions.Count() == 0) return true; 
-
-        var entities = innerTransactions.Select(x => new Data.Models.JournalRow
+        var entities = transactions.Select(x => new Data.Models.JournalRow
         {
             Code = x.Code,
             TypeCode = x.TypeCode,
@@ -47,12 +45,20 @@ public class LoadingService : ILoadingService
             NomenclatureName = x.NomenclatureName
         }).ToList();
 
-        var lastCode = innerTransactions.Max(x => x.Code);
+        if (entities.Count == 0) return true;
+
+        var lastCode = entities.Max(x => x.Code);
         settings.StartPosition = lastCode + 1;
 
         await _journalRepository.SaveRowsAsync(entities, token);
         await _settingReposity.SaveAsync(settings, token);
 
         return true;
+    }   
+
+    public async Task<long> GetPositionAsync(CompanyModel company, CancellationToken token)
+    {
+        var settings = await _settingReposity.LoadAsync(company, token);
+        return settings?.StartPosition ?? 1;
     }
 }

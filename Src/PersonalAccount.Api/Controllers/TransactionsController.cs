@@ -30,4 +30,19 @@ public class TransactionsController : ControllerBase
             return BadRequest(ex.Message); 
         }
     }
+
+    [HttpGet("position/{companyId}")]
+    public async Task<IActionResult> GetPosition(Guid companyId, CancellationToken token)
+    {
+        try
+        {
+            var company = new CompanyModel { Id = companyId };
+            var position = await _loadingService.GetPositionAsync(company, token);
+            return Ok(position);
+        }
+        catch
+        {
+            return Ok(1L);
+        }
+    }
 }

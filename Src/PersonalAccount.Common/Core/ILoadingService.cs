@@ -21,7 +21,6 @@ public interface ILoadingService
         IEnumerable<JournalRowDto> transactions,
         CancellationToken token);
 
-
     /// <summary>
     /// Записать данные
     /// </summary>
@@ -32,5 +31,13 @@ public interface ILoadingService
     public Task<bool> PushAsync( 
         CompanyModel company,
         IEnumerable<JournalRowDto> transactions,
-        CancellationToken token);    
+        CancellationToken token);
+
+    /// <summary>
+    /// Получить текущую позицию загрузки
+    /// </summary>
+    /// <param name="company"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public Task<long> GetPositionAsync(CompanyModel company, CancellationToken token);
 }

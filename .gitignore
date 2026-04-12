@@ -485,6 +485,8 @@ $RECYCLE.BIN/
 
 *.sql
 
+!Src/PersonalAccount.Data/Migrations/*.sql
+
 _Infra/
 
 client*
