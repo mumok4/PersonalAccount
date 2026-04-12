@@ -1,8 +1,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using PersonalAccount.Api.Logics;
 using PersonalAccount.Common.Core;
+using PersonalAccount.Data;
 using PersonalAccount.Data.Extensions;
 using PersonalAccount.Domain.Models;
 using PersonalAccount.Domain.Models.Dto;
@@ -34,8 +36,9 @@ public class TransactionsIntegrationTests
     {
         // Подготовка
         var loadingService = _provider.GetRequiredService<ILoadingService>();
+        var context = _provider.GetRequiredService<PersonalAccountContext>();
         var company = new CompanyModel { Id = Guid.Parse("14e54725-0efc-42b8-a27d-a84f9a7257c5") };
-        
+
         var testData = new List<JournalRowDto>
         {
             new JournalRowDto 
@@ -53,5 +56,8 @@ public class TransactionsIntegrationTests
 
         // Проверка
         Assert.That(result, Is.True);
+
+        var saved = await context.JournalRows.FirstOrDefaultAsync(x => x.Code == 99999);
+        Assert.That(saved, Is.Not.Null);
     }
 }
