@@ -19,4 +19,10 @@ public class CategoryModel : DomainModel
     /// </summary>
     [Required]
     public CompanyModel Owner {get;set;} = null!;
+
+    /// <summary>
+    /// Внешний код категории
+    /// </summary>
+    [Required]
+    public long Code { get; set; }
 }

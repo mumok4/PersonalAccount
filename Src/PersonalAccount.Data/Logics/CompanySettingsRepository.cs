@@ -1,5 +1,6 @@
 using System.Text.Json;
 using PersonalAccount.Common.Core;
+using PersonalAccount.Data.Models;
 using PersonalAccount.Domain.Models;
 
 namespace PersonalAccount.Data.Logics;

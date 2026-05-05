@@ -19,4 +19,10 @@ public class NomenclatureModel : DomainModel
     /// </summary>
     [Required]
     public CategoryModel Category {get;set;} = null!;
+
+    /// <summary>
+    /// Внешний код номенклатуры
+    /// </summary>
+    [Required]
+    public long Code { get; set; }
 }

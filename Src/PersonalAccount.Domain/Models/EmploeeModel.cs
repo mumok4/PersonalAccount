@@ -26,5 +26,11 @@ public class EmploeeModel : DomainModel
     /// </summary>
     [Required]
     public CompanyModel Owner {get;set;} = null!;
+
+    /// <summary>
+    /// Внешний код работника
+    /// </summary>
+    [Required]
+    public long Code { get; set; }
  
 }

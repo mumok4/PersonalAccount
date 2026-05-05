@@ -69,6 +69,7 @@ public partial class PersonalAccountContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Code).HasColumnName("code");
 
             entity.HasOne(d => d.Company).WithMany(p => p.Categories)
                 .HasForeignKey(d => d.CompanyId)
@@ -106,6 +107,7 @@ public partial class PersonalAccountContext : DbContext
             entity.Property(e => e.CompanyId).HasColumnName("company_id");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.Phone).HasColumnName("phone");
+            entity.Property(e => e.Code).HasColumnName("code");
 
             entity.HasOne(d => d.Company).WithMany(p => p.Emploees)
                 .HasForeignKey(d => d.CompanyId)
@@ -173,6 +175,7 @@ public partial class PersonalAccountContext : DbContext
                 .HasColumnName("id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.Name).HasColumnName("name");
+            entity.Property(e => e.Code).HasColumnName("code");
 
             entity.HasOne(d => d.Category).WithMany(p => p.Nomenclatures)
                 .HasForeignKey(d => d.CategoryId)

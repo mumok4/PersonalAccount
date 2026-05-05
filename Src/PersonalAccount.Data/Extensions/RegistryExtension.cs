@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PersonalAccount.Common.Core;
 using PersonalAccount.Common.Models;
 using PersonalAccount.Data.Logics;
+using PersonalAccount.Data.Models;
 
 namespace PersonalAccount.Data.Extensions;
 
