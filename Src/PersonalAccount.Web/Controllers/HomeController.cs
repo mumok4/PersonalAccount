@@ -1,85 +1,64 @@
 using Microsoft.AspNetCore.Mvc;
 using PersonalAccount.Common.Core;
+using PersonalAccount.Domain.Models;
 using PersonalAccount.Web.Models;
 
 namespace PersonalAccount.Web.Controllers;
 
-public class HomeController(IBranchRepository branchRepository) : Controller
+public class HomeController(IBranchRepository branchRepository, ISettingsRepository settingsRepository) : Controller
 {
-    // Репозиторий для работы с филиалами
     private readonly IBranchRepository _branchRepository = branchRepository;
+    private readonly ISettingsRepository _settingsRepository = settingsRepository;
 
     /// <summary>
-    /// Настройки
+    /// Настройки. Загрузка по выбранному филиалу.
     /// </summary>
-    /// <returns></returns>
-    public IActionResult Index()
+    public IActionResult Index(Guid? branchId = null)
     {
         var branches = _branchRepository.GetBranches().ToList();
-        var branch = branches.First();
+        var branch = branchId.HasValue
+            ? branches.FirstOrDefault(x => x.Id == branchId.Value) ?? branches.First()
+            : branches.First();
 
-        var viewModel = new BranchSettingsModel()
+        var viewModel = new BranchSettingsModel
         {
             Branches = branches,
             BranchId = branch.Id,
             Name = branch.Name,
-            StartPosition = branch.Settings.StartPosition,
-            BatchSize = branch.Settings.BatchSize
+            Description = branch.Settings?.Description ?? string.Empty,
+            StartPosition = branch.Settings?.StartPosition ?? 0,
+            BatchSize = branch.Settings?.BatchSize ?? 1000
         };
         return View(viewModel);
     }
 
-    /// <summary>
-    /// Продажи
-    /// </summary>
-    /// <returns></returns>
-    public IActionResult SallingReport()
-    {
-        return View();
-    }
+    public IActionResult SallingReport() => View();
+
+    public IActionResult RevenueReport() => View();
+
+    public IActionResult WorkScheduleReport() => View();
 
     /// <summary>
-    /// Выручка
+    /// Сохранить настройки с валидацией
     /// </summary>
-    /// <returns></returns>
-    public IActionResult RevenueReport()
-    {
-        return View();
-    }
-
-    /// <summary>
-    /// График работы
-    /// </summary>
-    /// <returns></returns>
-    public IActionResult WorkScheduleReport()
-    {
-        return View();
-    }
-
-    /// <summary>
-    /// Сохранить настройки
-    /// </summary>
-    /// <returns></returns>
     [HttpPost]
     public IActionResult SaveSettings(BranchSettingsModel model)
     {
         var branch = _branchRepository.GetBranch(model.BranchId);
-        branch.Name = model.Name;
-        branch.Settings.StartPosition = model.StartPosition;
-        branch.Settings.BatchSize = model.BatchSize;
+        var settings = branch.Settings;
+        settings.Description = model.Description ?? string.Empty;
+        settings.StartPosition = model.StartPosition;
+        settings.BatchSize = model.BatchSize;
+        settings.Branch = new BranchModel { Id = branch.Id, Name = branch.Name };
 
-        _branchRepository.Update(branch);
-
-        // Повторно перегружаю Index представление
-        var branches = _branchRepository.GetBranches().ToList();
-        var viewModel = new BranchSettingsModel()
+        if (!settings.Validate())
         {
-            Branches = branches,
-            BranchId = branch.Id,
-            Name = branch.Name,
-            StartPosition = branch.Settings.StartPosition,
-            BatchSize = branch.Settings.BatchSize
-        };
-        return View("Index", viewModel);
+            model.Branches = _branchRepository.GetBranches().ToList();
+            ViewData["Error"] = settings.ErrorText;
+            return View("Index", model);
+        }
+
+        _settingsRepository.Save(settings);
+        return RedirectToAction("Index", new { branchId = model.BranchId });
     }
 }
