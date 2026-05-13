@@ -1,4 +1,3 @@
-using System;
 using PersonalAccount.Domain.Models;
 
 namespace PersonalAccount.Web.Models;
@@ -16,7 +15,7 @@ public class BranchSettingsModel
     #region  Данные формы
 
     /// <summary>
-    /// Уникальный код филиал
+    /// Уникальный код филиала
     /// </summary>
     public Guid BranchId { get; set; }
 
@@ -26,14 +25,19 @@ public class BranchSettingsModel
     public string Name { get; set; } = null!;
 
     /// <summary>
-    /// Уникальный код транзакции для начала загрузки.
+    /// Описание настройки
     /// </summary>
-    public long StartPosition {get; set;}
+    public string Description { get; set; } = string.Empty;
 
     /// <summary>
-    /// Размер паки
+    /// Уникальный код транзакции для начала загрузки.
     /// </summary>
-    public long BatchSize {get;set;} = 1000;
+    public long StartPosition { get; set; }
+
+    /// <summary>
+    /// Размер пачки
+    /// </summary>
+    public long BatchSize { get; set; } = 1000;
 
     #endregion
 }

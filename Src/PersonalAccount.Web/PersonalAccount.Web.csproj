@@ -28,12 +28,6 @@
     <Folder Include="Logics/" />
   </ItemGroup>
 
-<ItemGroup>
-    <Content Include="../PersonalAccount.Console/appsettings.json">
-      <Link>appsettings.json</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
 
 
 </Project>
