@@ -18,6 +18,7 @@ public static class RegistryExtension
     )
     {
         services.AddScoped<IBranchRepository, BranchRepository>();
+        services.AddScoped<ISettingsService, SettingsService>();
         return services;
     }
 }

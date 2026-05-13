@@ -1,14 +1,15 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using PersonalAccount.Common.Core;
-using PersonalAccount.Domain.Models;
+using PersonalAccount.Web.Logics;
 using PersonalAccount.Web.Models;
 
 namespace PersonalAccount.Web.Controllers;
 
-public class HomeController(IBranchRepository branchRepository, ISettingsRepository settingsRepository) : Controller
+public class HomeController(IBranchRepository branchRepository, ISettingsService settingsService) : Controller
 {
     private readonly IBranchRepository _branchRepository = branchRepository;
-    private readonly ISettingsRepository _settingsRepository = settingsRepository;
+    private readonly ISettingsService _settingsService = settingsService;
 
     /// <summary>
     /// Настройки. Загрузка по выбранному филиалу.
@@ -44,21 +45,16 @@ public class HomeController(IBranchRepository branchRepository, ISettingsReposit
     [HttpPost]
     public IActionResult SaveSettings(BranchSettingsModel model)
     {
-        var branch = _branchRepository.GetBranch(model.BranchId);
-        var settings = branch.Settings;
-        settings.Description = model.Description ?? string.Empty;
-        settings.StartPosition = model.StartPosition;
-        settings.BatchSize = model.BatchSize;
-        settings.Branch = new BranchModel { Id = branch.Id, Name = branch.Name };
-
-        if (!settings.Validate())
+        try
+        {
+            _settingsService.SaveSettings(model);
+            return RedirectToAction("Index", new { branchId = model.BranchId });
+        }
+        catch (ValidationException ex)
         {
             model.Branches = _branchRepository.GetBranches().ToList();
-            ViewData["Error"] = settings.ErrorText;
+            ViewData["Error"] = ex.Message;
             return View("Index", model);
         }
-
-        _settingsRepository.Save(settings);
-        return RedirectToAction("Index", new { branchId = model.BranchId });
     }
 }
